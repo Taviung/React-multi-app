@@ -1,0 +1,60 @@
+/* Buttons */
+.button {
+  background-color: #e63946; /* Softer red */
+  color: white;
+  padding: 10px 16px;
+  text-align: center;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #d62828;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #8c8c8c;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  margin-top: 10px;
+}
+
+th,
+td {
+  border: 1px solid #a0a0a0;
+  padding: 10px 12px;
+  text-align: center;
+}
+
+th[scope="col"] {
+  background-color: #333;
+  color: #ffffff;
+}
+
+th[scope="row"] {
+  background-color: #d4edda;
+  color: #333;
+}
+
+tr:hover {
+  background-color: #fb0404;
+  cursor: pointer;
+}
+
+/* Inputs */
+input {
+  border: 1px solid #333;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
