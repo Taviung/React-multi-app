@@ -9,10 +9,10 @@ export default function App() {
   return (
     <Tabs>
       <TabContainer>
-        <Tab title="Todo List" >
+        <Tab title="Todo List" initiallyActive>
           <TodoHome />
         </Tab>
-        <Tab title="Subscriptions" initiallyActive>
+        <Tab title="Subscriptions" >
           <p>gg</p>
         </Tab>
         <Tab title="Permissions">
