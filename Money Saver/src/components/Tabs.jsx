@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { TabsContext } from './TabsContext';
-import "../CSS/Tabs.css";
 
 export default function Tabs({ children }) {
   const [active, setActive] = useState(null);

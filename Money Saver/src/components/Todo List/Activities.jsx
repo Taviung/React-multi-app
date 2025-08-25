@@ -1,32 +1,77 @@
-import styles from "./Activities.module.css";
-import ActivitiesRow from "./ActivitiesRow";
+import styled from 'styled-components';
+import ActivitiesRow from './ActivitiesRow';
 
+const Wrapper = styled.div`
+    padding: 1rem;
+`;
 
-const Activities = ({activity, deleteActivity}) =>{
+const Heading = styled.h3`
+    text-align: center;
+    color: ${({ theme }) => theme.text};
+    font-weight: bold;
+    margin-bottom: 1rem;
+`;
 
+const StyledTable = styled.table`
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+`;
+
+const Thead = styled.thead`
+    th {
+        background-color: ${({ theme }) => theme.tableHeader};
+        color: ${({ theme }) => theme.tableHeaderText};
+        padding: 12px;
+        border: 1px solid #444;
+        text-align: center;
+    }
+`;
+
+const Tbody = styled.tbody`
+  td {
+    color: ${({ theme }) => theme.text};
+    padding: 12px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+
+  tr:nth-child(odd) {
+    background-color: ${({ theme }) => theme.tableRowOdd};
+  }
+
+  tr:nth-child(even) {
+    background-color: ${({ theme }) => theme.tableRowEven};
+  }
+
+  tr:hover {
+    background-color: ${({ theme }) => theme.tableHover};
+    color: ${({ theme }) => theme.text};
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+`;
+
+const Activities = ({ activity, deleteActivity }) => {
     return (
-        <>
-            <div>
-                <h3 className="themeFontColor text-center">
-                    Your current activities
-                </h3>
-            </div>
-            <table styles={styles.table} className="table table-striped table-hover">
-                <thead>
+        <Wrapper>
+            <Heading>Your current activities</Heading>
+            <StyledTable>
+                <Thead>
                     <tr>
                         <th scope="col">Task</th>
                         <th scope="col">Creation Date</th>
                         <th scope="col">End Date</th>
                     </tr>
-                </thead>
-                <tbody className="themeFontColorSecond">
-                    {activity.map((item,index) => (
+                </Thead>
+                <Tbody>
+                    {activity.map((item, index) => (
                         <ActivitiesRow key={index} item={item} onDelete={deleteActivity} />
                     ))}
-                </tbody>
-            </table>
-        </>
+                </Tbody>
+            </StyledTable>
+        </Wrapper>
     );
-}
+};
 
 export default Activities;

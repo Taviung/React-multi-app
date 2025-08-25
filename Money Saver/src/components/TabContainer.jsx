@@ -1,4 +1,3 @@
-import "../CSS/Tabs.css";
 
 export default function TabContainer({ children }) {
   return (

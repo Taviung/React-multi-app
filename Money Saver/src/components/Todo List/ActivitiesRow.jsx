@@ -1,4 +1,3 @@
-import "./Activities.module.css";
 
 const ActivitiesRow = ({ item, onDelete }) => {
     const handleClick = () => {

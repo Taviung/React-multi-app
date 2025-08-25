@@ -1,6 +1,9 @@
+import styled from 'styled-components';
+
+const StyledActiveContent = styled.div`
+  color: ${({ theme }) => theme.text};
+`;
 
 export default function ActiveContent() {
-  return (
-    <div id="ActiveContents" className="tabs-content"/>
-  );
+    return <StyledActiveContent id="ActiveContents" className="tabs-content" />;
 }
