@@ -33,7 +33,7 @@ const Tbody = styled.tbody`
   td {
     color: ${({ theme }) => theme.text};
     padding: 12px;
-    border: 1px solid #ccc;
+    border: none;
     text-align: center;
   }
 
@@ -52,7 +52,7 @@ const Tbody = styled.tbody`
   }
 `;
 
-const Activities = ({ activity, deleteActivity }) => {
+const Activities = ({ activity, onDelete }) => {
     return (
         <Wrapper>
             <Heading>Your current activities</Heading>
@@ -62,11 +62,12 @@ const Activities = ({ activity, deleteActivity }) => {
                         <th scope="col">Task</th>
                         <th scope="col">Creation Date</th>
                         <th scope="col">End Date</th>
+                        <th scope="col">Delete Task</th>
                     </tr>
                 </Thead>
                 <Tbody>
-                    {activity.map((item, index) => (
-                        <ActivitiesRow key={index} item={item} onDelete={deleteActivity} />
+                    {activity.map((item) => (
+                        <ActivitiesRow key={item.id} item={item} onDelete={onDelete} />
                     ))}
                 </Tbody>
             </StyledTable>

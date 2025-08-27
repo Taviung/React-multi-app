@@ -19,12 +19,12 @@ const StyledRedButton = styled(StyledButton)`
   color: ${({ theme }) => theme.buttonTextRed};
 `;
 
-const Button = ({ addAction, text}) => {
-    return (<StyledButton onClick={addAction}>{text}</StyledButton>);
+const Button = ({ onClick, text}) => {
+    return (<StyledButton onClick={onClick}>{text}</StyledButton>);
 };
 
-const RedButton= ({ addAction, text}) => {
-    return (<StyledRedButton onClick={addAction}>{text}</StyledRedButton>);
+const RedButton= ({ onClick, text}) => {
+    return (<StyledRedButton onClick={onClick}>{text}</StyledRedButton>);
 };
 export {RedButton};
 export default Button;

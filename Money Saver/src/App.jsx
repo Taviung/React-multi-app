@@ -1,58 +1,52 @@
-import Tabs from './components/Tabs';
-import TabContainer from './components/TabContainer';
-import Tab from './components/Tab';
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
-import ActiveTabContent from './components/ActiveContent';
-import "./CSS/App.css";
-import TodoHome from './components/Todo List/TodoHome';
-import Button from "./components/Todo List/Button.jsx";
-import {useState} from "react";
-import {darkTheme, lightTheme} from "./CSS/theme.js";
+import { createBrowserRouter, RouterProvider, Route, createRoutesFromElements, Outlet, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { ThemeProvider } from 'styled-components';
+import { darkTheme, lightTheme } from './CSS/theme.js';
+import Button from './components/Todo List/Button.jsx';
+import About from './components/React Router/About.jsx';
+import TabsHome from './components/Tabs/TabsHome.jsx';
+import TaskDetail from './components/Todo List/TaskDetail.jsx';
+import Home from './components/React Router/Home.jsx';
+import EditTask from './components/Todo List/EditTask.jsx';
+import { ActivityProvider } from './components/Todo List/ActivityContext.jsx';
 
-const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: ${({ theme }) => theme.background};
-    color: ${({ theme }) => theme.text};
-    transition: all 0.3s ease;
-  }
-`;
+function RootLayout({ toggleDarkMode }) {
+    return (
+        <>
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-end' }}>
+                <Button onClick={toggleDarkMode} text={'Turn on/off dark mode'} />
+            </div>
+                <nav>
+                    <Link to="/">Home</Link> {"|"}
+                    <Link to="/about">About</Link>{"|"}
+                    <Link to="/todos">Todos</Link>
+                </nav>
+            <Outlet />
+        </>
+    );
+}
 
 export default function App() {
     const [isDarkMode, setDarkMode] = useState(false);
-    function toggleDarkMode() {
-        setDarkMode(!isDarkMode);
-    }
-  return (
-      <>
-          <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-              <GlobalStyle />
-              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-                  <Button addAction={toggleDarkMode} text={'Turn on/off dark mode'}/>
-              </div>
-              <div style={{ padding: '1rem' }}>
-                  <Tabs>
-                      <TabContainer>
-                          <Tab title="Todo List" initiallyActive>
-                              <TodoHome />
-                          </Tab>
-                          <Tab title="Subscriptions" >
-                              <p>gg</p>
-                          </Tab>
-                          <Tab title="Permissions">
-                              <div>
-                                  <h3>Permissions</h3>
-                                  <ul>
-                                      <li>Read</li>
-                                      <li>Write</li>
-                                      <li>Execute</li>
-                                  </ul>
-                              </div>
-                          </Tab>
-                      </TabContainer>
-                      <ActiveTabContent />
-                  </Tabs>
-              </div>
-          </ThemeProvider>
-    </>
-  );
+
+    const router = createBrowserRouter(
+        createRoutesFromElements(
+            <Route element={<RootLayout toggleDarkMode={() => setDarkMode(!isDarkMode)} />}>
+                <Route path="/" element={<Home />} />
+                <Route path="about" element={<About />} />
+                <Route path="todos" element={<TabsHome isDarkMode={isDarkMode} />}>
+                    <Route path=":id" element={<TaskDetail />} />
+                    <Route path="edit/:id" element={<EditTask />} />
+                </Route>
+            </Route>
+        )
+    );
+
+    return (
+        <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+            <ActivityProvider>
+                <RouterProvider router={router} />
+            </ActivityProvider>
+        </ThemeProvider>
+    );
 }

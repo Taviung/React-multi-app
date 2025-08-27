@@ -1,93 +1,62 @@
-
-import Activities from "./Activities"
-import AddForm from "./AddForm"
-import { useState, useEffect} from "react"
-import Button from "./Button"
-
-const getInitialActivities = () => {
-  const saved = localStorage.getItem("activities");
-  if (saved) {
-    return JSON.parse(saved);
-  } else {
-    return [
-      {
-        order: 1,
-        task: "Complete React project",
-        creationDate: "2025-08-05",
-        endDate: "2025-10-05"
-      },
-      {
-        order: 2,
-        task: "Write documentation",
-        creationDate: "2025-09-05",
-        endDate: "2025-09-05"
-      },
-      {
-        order: 3,
-        task: "Deploy application",
-        creationDate: "2025-09-05",
-        endDate: "2025-12-30"
-      }
-    ];
-  }
-};
-
+import Activities from "./Activities";
+import AddForm from "./AddForm";
+import { useState } from "react";
+import Button from "./Button";
+import { Outlet } from "react-router-dom";
+import { useActivity } from "./ActivityContext.jsx";
 
 function TodoHome() {
-    const [activity, setActivity] = useState(getInitialActivities);
+    const { activity, setActivity } = useActivity();
     const [taskTitle, setTaskTitle] = useState("");
     const [end, setEndDate] = useState("");
     const [showForm, setShowForm] = useState(false);
 
-    useEffect(() => {
-        localStorage.setItem("activities", JSON.stringify(activity));
-    }, [activity]);
-
     const addActivity = () => {
-      if (!taskTitle || !end) return alert("Please insert both");
+        if (!taskTitle || !end) return alert("Please insert both");
 
-      const newActivity = {
-        order: activity.length + 1,
-        task: taskTitle,
-        creationDate: new Date().toISOString().split('T')[0],
-        endDate: end
-      };
+        const newActivity = {
+            id: activity.reduce((max, item) => Math.max(max, item.id), 0) + 1,
+            task: taskTitle,
+            creationDate: new Date().toISOString().split('T')[0],
+            endDate: end
+        };
 
-      setActivity([...activity, newActivity]);
-      setEndDate("");
-      setTaskTitle("");
-      setShowForm(false);
+        setActivity([...activity, newActivity]);
+        setEndDate("");
+        setTaskTitle("");
+        setShowForm(false);
+
     };
 
-
     const deleteActivity = (itemToBeDeleted) => {
-      const updated = activity.filter(item => item !== itemToBeDeleted);
-      setActivity(updated);
+
+        const updated = activity.filter(item => item !== itemToBeDeleted);
+        setActivity(updated);
     };
 
     const showModal = () => {
-      setShowForm(true); 
+        setShowForm(true);
     };
+    return (
+        <>
+            <div>
+                <Activities activity={activity} onDelete={deleteActivity} />
+                <Button onClick={showModal} text="Add task" />
 
-  return (
-    <>
-    <div>
-      <Activities activity={activity} deleteActivity={deleteActivity} />
-      <Button addAction={showModal} text="Add activity"/>
-
-      {showForm && (
-            <AddForm
-              addActivity={addActivity}
-              end={end}
-              setEndDate={setEndDate}
-              taskTitle={taskTitle}
-              setTaskTitle={setTaskTitle}
-              setShowForm={setShowForm}
-            />
-      )}
-      </div>
-    </>
-  )
+                {showForm && (
+                    <AddForm
+                        addActivity={addActivity}
+                        end={end}
+                        setEndDate={setEndDate}
+                        taskTitle={taskTitle}
+                        setTaskTitle={setTaskTitle}
+                        setShowForm={setShowForm}
+                    />
+                )}
+                <Outlet />
+            </div>
+        </>
+    );
 }
 
 export default TodoHome;
