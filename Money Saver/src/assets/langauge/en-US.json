@@ -1,0 +1,15 @@
+{
+  "title": "Toyota MR2 Spyder (ZZW30 / SW30)",
+  "engineCode": "Engine Code: 1ZZ-FE",
+  "engineType": "Engine Type: 1.8L Inline-4, DOHC, 16-valve VVT-i",
+  "displacement": "Displacement: 1,794 cc",
+  "power": "Power Output: ~138 hp @ 6,400 rpm (103 kW)",
+  "torque": "Torque: ~126 lb-ft @ 4,400 rpm (171 Nm)",
+  "redline": "Redline: 6,500 rpm",
+  "revLimiter": "Rev limiter: ~6,800 rpm",
+  "acceleration": "0–100 km/h: ~6.8–7.5 seconds",
+  "topSpeed": "Top Speed: ~125 mph (201 km/h)",
+  "transmission": "Transmission Options: 5-speed manual",
+  "drivetrain": "Drivetrain: Mid-engine, Rear-wheel drive (MR)",
+  "itemCount": "{count, plural, =0 {No cars} one {1 car} other {# cars}}"
+}

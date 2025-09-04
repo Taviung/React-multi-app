@@ -6,6 +6,12 @@ import ActiveTabContent from './ActiveContent.jsx';
 import "../../CSS/App.css";
 import TodoHome from '../Todo List/TodoHome.jsx';
 import {darkTheme, lightTheme} from "../../CSS/theme.js";
+import {FormattedMessage, IntlProvider} from "react-intl";
+import en from "../../assets/langauge/en-US.json"
+import fr from "../../assets/langauge/fr.json"
+import de from "../../assets/langauge/de.json"
+import {useState} from "react";
+import InputField from "../Todo List/InputFiled.jsx";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -16,39 +22,47 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default function TabsHome({isDarkMode}) {
-
+    const [noOfCars, setNoOfCars] = useState(0);
+    const messages = {
+        "en-US": en,
+        "fr": fr,
+        "de": de
+    };
   return (
       <>
-          <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-              <GlobalStyle />
-              <div style={{ padding: '1rem' }}>
-                  <Tabs>
-                      <TabContainer>
-                          <Tab title="Todo List" initiallyActive>
-                              <TodoHome />
-                          </Tab>
-                          <Tab title="Perormance specs">
-                              <div>
-                                  <h1>Toyota MR2 Spyder (ZZW30 / SW30) </h1>
-                                      <p>Engine Code	1ZZ-FE</p>
-                                      <p>Engine Type	1.8L Inline-4, DOHC, 16-valve VVT-i</p>
-                                      <p>Displacement	1,794 cc</p>
-                                      <p>Power Output	~138 hp @ 6,400 rpm (103 kW)</p>
-                                      <p>Torque	        ~126 lb-ft @ 4,400 rpm (171 Nm)</p>
-                                      <p>Redline	     6,500 rpm</p>
-                                      <p>Rev limiter	~6,800 rpm</p>
-                                      <p>0–100 km/h 	~6.8–7.5 seconds </p>
-                                      <p>Top Speed  	~125 mph (201 km/h)</p>
-                                      <p>Transmission Options	5-speed manual </p>
-                                      <p>Drivetrain	Mid-engine, Rear-wheel drive (MR)</p>
-                              </div>
-                          </Tab>
-                      </TabContainer>
-                      <ActiveTabContent />
-                  </Tabs>
-              </div>
-          </ThemeProvider>
-
+          <IntlProvider locale={navigator.language} messages={messages[navigator.language]}>
+              <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+                  <GlobalStyle />
+                  <div style={{ padding: '1rem' }}>
+                      <Tabs>
+                          <TabContainer>
+                              <Tab title="Todo List" initiallyActive>
+                                  <TodoHome />
+                              </Tab>
+                              <Tab title="Performance specs">
+                                  <div>
+                                      <h1><FormattedMessage id="title" /></h1>
+                                      <p><FormattedMessage id="engineCode" /></p>
+                                      <p><FormattedMessage id="engineType" /></p>
+                                      <p><FormattedMessage id="displacement" /></p>
+                                      <p><FormattedMessage id="power" /></p>
+                                      <p><FormattedMessage id="torque" /></p>
+                                      <p><FormattedMessage id="redline" /></p>
+                                      <p><FormattedMessage id="revLimiter" /></p>
+                                      <p><FormattedMessage id="acceleration" /></p>
+                                      <p><FormattedMessage id="topSpeed" /></p>
+                                      <p><FormattedMessage id="transmission" /></p>
+                                      <p><FormattedMessage id="drivetrain" /></p>
+                                      <InputField type={"number"} headerText={"Number of cars"} onChange={(e)=>setNoOfCars(e.target.value)} value={noOfCars} />
+                                      <FormattedMessage id="itemCount" values={{ count: Number(noOfCars) }} />
+                                  </div>
+                              </Tab>
+                          </TabContainer>
+                          <ActiveTabContent />
+                      </Tabs>
+                  </div>
+              </ThemeProvider>
+          </IntlProvider>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import {useParams, useNavigate, Outlet} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import Button, {RedButton} from "./Button.jsx";
 import {useActivity} from "./ActivityContext.jsx";
@@ -23,7 +23,14 @@ const TaskDetail = () => {
                 <p>Task: {task.task}</p>
                 <p>Created: {task.creationDate}</p>
                 <p>End Date: {task.endDate}</p>
-                <Button onClick={() => navigate(`/todos`)} text={"Back"}/>
+                <p>User: {task.username}</p>
+                <p>Email: {task.email}</p>
+                <p>Backup Email: {task.backupEmail}</p>
+                <p>Country: {task.country}</p>
+                <p>Hobbies: {task.hobbies.map((hobby, index) => (
+                    <li key={index}>{hobby.name}</li>
+                ))}</p>
+                <RedButton onClick={() => navigate(`/todos`)} text={"Back"}/>
                 <Button onClick={() => navigate(`/todos/edit/${task.id}`)} text="Edit" />
             </div>
         </StyledTaskDetail>

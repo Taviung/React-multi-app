@@ -1,0 +1,15 @@
+{
+  "title": "Toyota MR2 Spyder (ZZW30 / SW30)",
+  "engineCode": "Motorkennzeichen: 1ZZ-FE",
+  "engineType": "Motortyp: 1,8L R4, DOHC, 16-Ventile VVT-i",
+  "displacement": "Hubraum: 1.794 cm³",
+  "power": "Leistung: ~138 PS bei 6.400 U/min (103 kW)",
+  "torque": "Drehmoment: ~171 Nm bei 4.400 U/min (~126 lb-ft)",
+  "redline": "Drehzahlgrenze: 6.500 U/min",
+  "revLimiter": "Begrenzer: ~6.800 U/min",
+  "acceleration": "0–100 km/h: ~6,8–7,5 Sekunden",
+  "topSpeed": "Höchstgeschwindigkeit: ~201 km/h (~125 mph)",
+  "transmission": "Getriebeoptionen: 5-Gang-Schaltgetriebe",
+  "drivetrain": "Antrieb: Mittelmotor, Hinterradantrieb (MR)",
+  "itemCount": "{count, plural, =0 {Keine Autos} one {1 Auto} other {# Autos}}"
+}

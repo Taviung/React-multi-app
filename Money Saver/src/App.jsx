@@ -7,8 +7,18 @@ import About from './components/React Router/About.jsx';
 import TabsHome from './components/Tabs/TabsHome.jsx';
 import TaskDetail from './components/Todo List/TaskDetail.jsx';
 import Home from './components/React Router/Home.jsx';
-import EditTask from './components/Todo List/EditTask.jsx';
+import ReduxEditTask from './components/Todo List/ReduxEditTask.jsx';
 import { ActivityProvider } from './components/Todo List/ActivityContext.jsx';
+import AddForm from "./components/Todo List/AddForm.jsx";
+import { createStore, combineReducers } from "redux";
+import { reducer as formReducer } from "redux-form";
+import { Provider } from "react-redux";
+
+const rootReducer = combineReducers({
+    form: formReducer,
+});
+
+const store = createStore(rootReducer);
 
 function RootLayout({ toggleDarkMode }) {
     return (
@@ -35,18 +45,22 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="about" element={<About />} />
                 <Route path="todos" element={<TabsHome isDarkMode={isDarkMode} />}>
+                    <Route path="add" element={<AddForm />} />
                     <Route path=":id" element={<TaskDetail />} />
-                    <Route path="edit/:id" element={<EditTask />} />
+                    <Route path="edit/:id" element={<ReduxEditTask />} />
                 </Route>
             </Route>
         )
     );
 
     return (
-        <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-            <ActivityProvider>
-                <RouterProvider router={router} />
-            </ActivityProvider>
-        </ThemeProvider>
+        <Provider store={store}>
+            <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+                <ActivityProvider>
+                    <RouterProvider router={router} />
+                </ActivityProvider>
+            </ThemeProvider>
+        </Provider>
     );
+
 }
